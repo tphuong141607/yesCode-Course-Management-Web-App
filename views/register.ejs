@@ -1,0 +1,35 @@
+<% include ./partials/header %>
+
+<link rel='stylesheet' href='/stylesheets/form.css'>	
+<link rel='stylesheet' href='/stylesheets/login.css'>	
+
+<div class='bg-image'></div>
+
+<div class='container'>
+	<div class='form-div'>
+		<h1>Register</h1>
+
+		<div class='account'> 
+			<button class='student accountSelected'> Student </button> |
+			<button class='faculty'> Faculty </button>
+		</div>
+
+		<form action='/register' method='POST'>
+			<div class='form-group pt-4'>
+				<input type='text' name='username' placeholder='username' class='form-control'>
+			</div>
+
+			<div class='form-group'>
+				<input type='password' name='password' placeholder='password' class='form-control'>
+			</div>
+
+			<button>Sign up</button>
+		</form>
+
+	</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="/supportingScripts/loginSwitch.js"></script>
+
+<% include ./partials/footer %>

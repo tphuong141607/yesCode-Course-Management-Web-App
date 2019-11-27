@@ -1,0 +1,100 @@
+
+body, html {
+  height: 100%;
+}
+
+.bg-image {
+  /* The image used */
+  background-image: url('https://thumbs.gfycat.com/FeistyDirectDipper-max-1mb.gif');
+
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* Blur effect */
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+}
+
+.container {
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  padding: 19px;
+  text-align: center;
+}
+
+.accountSelected {
+  color: #6f9a8d;
+}
+
+.account button {
+  background-color: transparent;
+  border-style: none;
+  font-size: 15px;
+}
+
+.account-problem {
+  text-align: left;
+  padding-top: 3rem; 
+}
+
+.account-problem a {
+  display: block;
+  color: #5f6769;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.account-problem a:hover, 
+.account-problem a:focus, 
+.account-problem a:active{ 
+  color: #719192; 
+} 
+
+/*------------------------------------*/
+/*   @MEDIA - responsive for mobile   */
+/*------------------------------------*/
+
+/* for-phone-only */
+@media (max-width: 599px) { 
+	.container {
+		width: 80%;
+	}
+}
+
+/* for-tablet-portrait-up */
+@media (min-width: 600px) { 
+	.container {
+		width: 60%;
+	}
+}
+
+/* for-tablet-landscape-up */
+@media (min-width: 900px) { 
+	.container {
+		width: 50%;
+	}
+}
+
+/* for-desktop-up */
+@media (min-width: 1200px) { 
+	.container {
+		width: 40%;
+	}
+}
+
+
+

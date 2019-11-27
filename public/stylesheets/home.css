@@ -1,0 +1,15 @@
+.containerCus {
+	padding: 7rem 2rem 0rem 0rem;	
+}
+
+body {
+	background-color: #e3e7f1;
+}
+
+div.tui-full-calendar-section-allday {
+    display: none;
+}
+
+.tui-full-calendar-popup-section-item.tui-full-calendar-section-location {
+   display: none;
+}

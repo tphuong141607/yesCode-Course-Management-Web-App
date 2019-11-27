@@ -1,0 +1,61 @@
+h1 {
+	color: #396362;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 3.5rem;
+}
+
+.btn { 
+  width: 15%;	
+  border-radius: 30%;
+  background-color: #4b8e8d; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn:hover, 
+.btn:focus, 
+.btn:active{ 
+  color: #ffffff; 
+  background-color: #396362; 
+  border-color: #FFFFFF; 
+} 
+
+.form-div {
+	background: white;
+	border-radius: 0.5rem;
+	padding: 4rem;
+}
+
+/*------------------------------------*/
+/*   @MEDIA - responsive for mobile   */
+/*------------------------------------*/
+/* for-phone-only */
+@media (max-width: 599px) { 
+	h1 { font-size: 2rem; }
+	.form-div { 
+		padding: 1rem; 
+		padding-top: 3rem; 
+		padding-bottom: 3rem; 
+	}
+	.btn { width: 20%; }
+}
+
+/* for-tablet-portrait-up */
+@media (min-width: 600px) { 
+	h1 { font-size: 2.5rem }
+	.form-div { padding: 2.5rem }
+	.btn { width: 25%; }
+}
+
+/* for-tablet-landscape-up */
+@media (min-width: 900px) { 
+	h1 { font-size: 3rem }
+	.form-div { padding: 4rem }
+}
+
+/* for-desktop-up */
+@media (min-width: 1200px) { 
+	h1 { font-size: 3.5rem }
+}
+
+

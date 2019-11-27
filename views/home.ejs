@@ -1,0 +1,96 @@
+<% include ./partials/header %>
+<% include ./partials/nav %>
+
+<link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
+<link rel="stylesheet" type="text/css" href='/stylesheets/home.css'/>
+  
+  
+  <div class="row">
+    <div class="col-xs-3">  
+        <div id="calendarList" class="lnb-calendars-d1 list-group"></div>
+    </div>
+    
+    <div class="col-xs-9">
+
+        <div id="menu">
+		  <span id="menu-navi">
+				<button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+				<button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+				  <i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+				  <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
+				</button>
+			  </span>
+			  <span id="renderRange" class="render-range"></span>
+        </div>
+
+
+        <div id="calendar" style="height: 600px;"></div>
+    </div>
+</div>
+
+<script id="template-lnb-calendars-item" type="x-tmpl-mustache">
+     {{#users}}
+    <div class="lnb-calendars-item list-group-item">
+        <label>
+            <input type="checkbox" class="tui-full-calendar-checkbox-round" value="{{ id }}" checked="">
+            <span style="border-color: {{ color }}; background-color: {{ color }};" data-visible="visible"></span>
+            <span>{{ name }}</span>
+        </label>
+    </div>
+    {{/users}}
+</script>    
+ 
+  <!--
+
+<div class="containerCus">
+  <div class="row">
+
+  	<div class="col-md-6"> </div>
+
+   
+    <div class="col-md-6">
+     	
+      	<div class='calendar'>
+			<div id="menu">
+		  		<span id="menu-navi">
+				    <button type="button" class="btn btn-default btn-sm move-today">Today</button>
+			    
+				    <button type="button" class="btn btn-default btn-sm move-prev">
+		      			<i class="fas fa-arrow-left"></i>
+			    	</button>
+
+				    <button type="button" class="btn btn-default btn-sm move-next">
+			      		<i class="fas fa-arrow-right"></i>
+				    </button>
+		  		</span>
+
+		  		<span id="renderRange" class="render-range"></span>
+			</div>
+
+			<div id="calendar"></div>
+		</div>
+    </div>
+
+  </div>
+</div>
+
+!-->
+<!-- Script for Calendar!-->
+<script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
+<script src="https://uicdn.toast.com/tui.dom/v3.0.0/tui-dom.js"></script>
+<script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
+<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
+<script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+
+<!-- Script for jQUERY!-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+
+<!-- Script for Mustache-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+
+<!-- myScript!-->
+<script type="text/javascript" src="/supportingScripts/calendar.js"></script>
+<% include ./partials/footer %>
