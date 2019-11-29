@@ -3,33 +3,132 @@
 
 <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
 <link rel="stylesheet" type="text/css" href='/stylesheets/home.css'/>
+
+ <div class="containerCus container-fluid">
+ 	  <h1 class="text-center welcomeText pb-5" id="welcome-text"></h1>
+	  <div class="row pb-5 px-5 pt-5">
+	  
+		  <div class="col-sm-7"> 
+				<div class="card cardCus">
+					 <div class="card-header card-header-cus text-center"> 
+						 <h4><a class="title" href='#'>Announcements</a></h2>				
+					  </div>
+					  <!-- For loop here to create multiple announcements!-->
+					  <div class="card-body card-body-cus">
+							<a href="#"><h5 class="announce-title">New things title <%= %></h5></a>
+							<p class="small-space"><em>Posted by professor: XU <%= %></em><p>
+							<p class="small-space"><em>Date posted: Nov 20th, 2019 <%= %></em></p>
+							<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+							<%-  %></p>
+					   </div>	
+
+						<div class="card-body card-body-cus">
+							<a href="#"><h5 class="announce-title">New things title <%= %></h4></a>
+							<p class="small-space"><em>Posted by professor: XU <%= %></em><p>
+							<p class="small-space"><em>Date posted: Nov 20th, 2019 <%= %></em></p>
+							<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+							<%-  %></p>
+					   </div>	
+
+				</div>			
+		  </div> 
+	  
+		  <div class="col-sm-5"> 
+			<div class="card cardCus">
+					 <div class="card-header card-header-cus text-center"> 
+						 <h4><a class="title" href='#'>Performance</a></h2>				
+					  </div>
+
+					   <div class="row container align-items-center">
+
+						  <div class="col-sm-6"> 
+							  <div class="d-flex justify-content-center">
+								 <div class="dot">89</div>	 
+							  </div>
+						   </div>
+
+						   <div class="col-sm-6"> 
+							  <div class="card-body card-body-cus">
+								<div class="d-flex justify-content-between align-items-center">
+									<h7 class="announce-title">• Homework: 80%</h7>
+									<p class="small-space"><em>3 lefts</em><p>
+								</div>
+
+								<div class="d-flex justify-content-between align-items-center">
+									<h7 class="announce-title">• Homework: 80%</h7>
+									<p class="small-space"><em>3 lefts</em><p>
+								</div>
+
+								<div class="d-flex justify-content-between align-items-center">
+									<h7 class="announce-title">• Homework: 80%</h7>
+									<p class="small-space"><em>3 lefts</em><p>
+								</div>
+
+								<div class="d-flex justify-content-between align-items-center">
+									<h7 class="announce-title">• Homework: 80%</h7>
+									<p class="small-space"><em>3 lefts</em><p>
+								</div>
+
+								<div class="d-flex justify-content-between align-items-center">
+									<h7 class="announce-title">• Homework: 80%</h7>
+									<p class="small-space"><em>3 lefts</em><p>
+								</div>
+							 </div>
+
+						   </div>
+					  </div>
+
+				</div>			
+		  </div> 
+  	</div>
   
   
-  <div class="row">
-    <div class="col-xs-3">  
-        <div id="calendarList" class="lnb-calendars-d1 list-group"></div>
-    </div>
-    
-    <div class="col-xs-9">
 
-        <div id="menu">
-		  <span id="menu-navi">
-				<button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
-				<button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
-				  <i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
-				</button>
-				<button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
-				  <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
-				</button>
-			  </span>
-			  <span id="renderRange" class="render-range"></span>
-        </div>
+  	<div class="row px-5">
+   		<!-----------------  CALENDAR ! ----------------->
+		<div class="col-sm-7">
+			<div class="card-header card-header-cus text-center"> 
+				<h4><a class="title" href='#'>Calendar</a></h2>				
+			</div>
+			
+			<div id="menu">
+			  <span id="menu-navi">
+					<button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today - Change to weekly schedule</button>
+					<button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+					  <i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
+					</button>
+					<button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+					  <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
+					</button>
+				  </span>
+				  <span id="renderRange" class="render-range"></span>
+			</div>
 
+			<div id="calendar" style="height: 600px;"></div>
+		</div>
+		<!-----------------  END OF CALENDAR ! ----------------->
+		
+		<div class="col-sm-5">  
+			<div class="card cardCus">
+				<div class="card-header card-header-cus text-center"> 
+					<h4><a class="title" href='#'>To do list</a></h2>				
+				</div>
+				<!-- For loop here to create multiple announcements!-->
+				<div class="card-body card-body-cus">
+					<p class="small-space"><em>• Homework 2 due on Nov 20th, 2019 <%= %></em></p>
+					<p class="small-space"><em>• Homework 2 due on Nov 20th, 2019 <%= %></em></p>
+					<p class="small-space"><em>• Homework 2 due on Nov 20th, 2019 <%= %></em></p>
+					<p class="small-space"><em>• Homework 2 due on Nov 20th, 2019 <%= %></em></p>
+					<p class="small-space"><em>• Homework 2 due on Nov 20th, 2019 <%= %></em></p>
+					
+				</div>		
 
-        <div id="calendar" style="height: 600px;"></div>
-    </div>
+			</div>			
+		  </div> 
+	</div>
+	
 </div>
-
+ 
 <script id="template-lnb-calendars-item" type="x-tmpl-mustache">
      {{#users}}
     <div class="lnb-calendars-item list-group-item">
@@ -42,7 +141,7 @@
     {{/users}}
 </script>    
  
-  <!--
+<!--
 
 <div class="containerCus">
   <div class="row">
@@ -78,6 +177,8 @@
 
 !-->
 <!-- Script for Calendar!-->
+
+
 <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
 <script src="https://uicdn.toast.com/tui.dom/v3.0.0/tui-dom.js"></script>
 <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
@@ -93,4 +194,7 @@
 
 <!-- myScript!-->
 <script type="text/javascript" src="/supportingScripts/calendar.js"></script>
+<script type="text/javascript" src="/supportingScripts/navScroll.js"></script>
+<script type="text/javascript" src="/supportingScripts/textScamble.js"></script>
+
 <% include ./partials/footer %>

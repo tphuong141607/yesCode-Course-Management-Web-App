@@ -1,3 +1,5 @@
+// CSS switch color
+
 $('.student').click(function () {
 	console.log("a");
  	$(this).addClass('accountSelected');

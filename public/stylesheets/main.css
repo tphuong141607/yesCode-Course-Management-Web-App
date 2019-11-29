@@ -1,21 +1,33 @@
 
 /*-------------------------------*/
-/****   MAIN NAVBAR SECTION   ****/
+/****  #2C3E50 MAIN NAVBAR SECTION   ****/
+
 /*-------------------------------*/
+
+body {
+	background-color: #ebe9e2;
+	font-family: "Nunito", sans-serif;
+  padding: 0;
+}
+
+.containerCus {
+	padding-top: 14rem;
+}
+
 #mainNavbar {
   font-size: 1.1em;
   font-weight: 100;
-  background: #00467F;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #A5CC82, #00467F);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #A5CC82, #00467F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  background: #2C3E50;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /* Navbar Scroll */
-.navbar.scrolled {
-  background: #C33764;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1D2671, #C33764); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+#mainNavbar.scrolled {
+background: #2C3E50;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .navbar-toggle.collapsed {
@@ -25,17 +37,17 @@
 /* Home-Brand */
 #mainNavbar .navbar-brand {
   font-weight: 700;
-  color: #1f6650;
+  color: #b98277;
   font-size: 1.3rem;
 } 
 
 /* All Links */
 #mainNavbar .nav-link {
-  color: white;
+  color: #e2d7d2;
 } 
 
 #mainNavbar .nav-link:hover {
-  color: #1f6650;
+  color: #00848c;
 } 
 
 .auth {

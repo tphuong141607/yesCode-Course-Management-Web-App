@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<div class='container'>
+	<form class='formDiv' action='/assignment' method='POST'>
+		<h1>Add new assignment</h1>
+		
+		<div class='form-group pt-2'>
+			<label>Title</label>
+			<input type='text' class='form-control' name='assignment[title]' placeholder='title'>
+		</div>
+		
+		<div class='form-group field'>
+			<label>Due Date</label>
+			<input type='Date' class='form-control' name='assignment[dateDue]' placeholder='Due date'>
+		</div>
+		
+		<div class='form-group field'>
+			<label>Description</label>
+			<textarea type='text'rows='9' class='form-control' name='assignment[body]' placeholder='description'></textarea>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+
+<% include ../partials/footer %>
