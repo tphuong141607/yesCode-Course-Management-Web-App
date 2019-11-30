@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+
+<link rel="stylesheet" type="text/css" href='/stylesheets/assignment.css'/>
+
+<div class='container containerCus'>
+	<form class='formDiv' action='/assignment/<%= assignment._id %>?_method=PUT' method='POST'>
+		<h1>Editing: <%=assignment.title%></h1>
+
+		<div class='form-group pt-2'>
+			<label>Assignment Number</label>
+			<input type='text' class='form-control' name='assignment[number]' value='<%= assignment.number %>'>
+		</div>
+		
+		<div class='form-group pt-2'>
+			<label>Title</label>
+			<input type='text' class='form-control' name='assignment[title]' value='<%= assignment.title %>'>
+		</div>
+		
+		<div class='form-group'>
+				<label>Due Date</label>
+				<input type='Date' class='form-control' name='assignment[dateDue]' value='<%=assignment.dateDue.getFullYear()%>-<%= (assignment.dateDue.getMonth() < 9 ? '0': '') + (assignment.dateDue.getMonth()+1)%>-<%= (assignment.dateDue.getDate() < 9 ? '0': '') + (assignment.dateDue.getDate())%>'>	
+		</div>
+		
+		<div class='form-group field'>
+			<label>Description</label>
+			<textarea type='text'rows='9' class='form-control' name='assignment[body]'><%= assignment.body %></textarea>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="cancel" class="btn btn-primary" onclick="window.location='/assignment/<%= assignment._id %>'; return false;">Cancel</button>
+	</form>
+</div>
+
+<% include ../partials/footer %>

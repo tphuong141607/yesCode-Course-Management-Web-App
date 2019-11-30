@@ -1,12 +1,13 @@
 // CSS switch color
 
 $('.student').click(function () {
-	console.log("a");
  	$(this).addClass('accountSelected');
  	$('.faculty').removeClass('accountSelected');
+    $('#account_type').val('student');
 });
 
 $('.faculty').click(function () {
  	$(this).addClass('accountSelected');
  	$('.student').removeClass('accountSelected');
+	$('#account_type').val('faculty');
 });

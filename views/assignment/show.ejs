@@ -1,5 +1,50 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 
+<link rel="stylesheet" type="text/css" href='/stylesheets/assignment.css'/>
+
+<div class='container containerCus'>
+		<div class="row">
+			<div class="card col-sm-4">
+			  <div class="card-body">
+		  			<h4 class="py-2">Posted on: <%= assignment.dateCreated.toDateString() %></h4>
+			  		<h4 class="py-2">Due Date: <%= assignment.dateDue.toDateString() %></h4>
+			  		<h4 class="py-2">Total Points: <%= assignment.totalPoint %></h4>
+			  		<h4 class="py-2">Status: <%= assignment.status %></h4>
+			  			
+		  			<br></br>
+		  			<% if(userTypeStudent){ %>
+						<button>Submit</button>
+			  			<button>Need help!</button>	
+					<% } %>
+
+			   </div>
+			   
+			   <div class='row justify-content-center'>
+					<% if(userTypeFaculty){ %>
+						<button class=''><a class='btnLink' href='/assignment/<%=assignment._id%>/edit'>Edit</a></button>
+						<form action='/assignment/<%= assignment._id %>?_method=DELETE' method="POST">
+							<button class=''> Delete</button>
+						</form>
+					<% } %>
+				</div>
+				
+			</div>
+		
+			<div class="card col-sm-8">
+			 <div class="card-header text-center">
+				 <h1 class="card-title">Assignment <%= assignment.number %>: <%= assignment.title %></a></h1>
+			  </div>
+
+			  <div class="card-body">
+			  		<h4 class="py-2">Description: <%= assignment.body %></h4>
+		  			<br></br>
+			  		<p>comments.... section</p>
+			   </div>
+			</div>	
+		</div>
+		
+		
+</div>
 
 <% include ../partials/footer %>

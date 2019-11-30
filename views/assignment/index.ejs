@@ -3,22 +3,29 @@
 
 <link rel="stylesheet" type="text/css" href='/stylesheets/assignment.css'/>
 
-<% assignment.forEach(function(eachAssignment){ %>
-	<div class="containerCus">
-		<div class="card assignmentHover">
-			 <h5 class="card-header">Assignment: <%= eachAssignment.number %></h5>
-			 <div class="card-body">
-				<h5 class="card-title"><%= eachAssignment.title %></h5>
-				<p class="card-text"><em>Due Date: <%= eachAssignment.dateDue%></em></p>
-				<p class="card-text">Describtion: <%= eachAssignment.body.substring(0, 80) %>...</p>
-				<div class="mask">
-					<a href='/assignment/<%= eachAssignment._id %>' class='hoverLink'></a>
-					<p>Read More</p>
-				</div>
-			  </div>
+<div class="containerCus">
+	<% assignment.forEach(function(eachAssignment){ %>
+		<div class="container pt-5">
+			<div class="card assignmentHover">
+			 	<div class="card-header">
+			 		 <h5> Assignment <%= eachAssignment.number %>: <%= eachAssignment.title %></h5>
+					 <p><em>Posted on: <%= eachAssignment.dateCreated%></em></p>
+					 <p><em>Due Date: <%= eachAssignment.dateDue%></em></p>
+			 	</div>
+				
+				 
+				 <div class="card-body">
+					
+					<p class="card-text">Describtion: <%= eachAssignment.body.substring(0, 80) %>...</p>
+					<div class="mask">
+						<a href='/assignment/<%= eachAssignment._id %>' class='hoverLink'></a>
+						<p>Read More</p>
+					</div>
+				  </div>
+			</div>
 		</div>
-	</div>
-<% }); %>
+	<% }); %>
+</div>
 
 
 	
