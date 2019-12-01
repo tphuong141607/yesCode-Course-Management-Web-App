@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<link rel="stylesheet" type="text/css" href='/stylesheets/assignment.css'/>
+
+<div class='container containerCus'>
+	<form class='formDiv' action='/assignments/<%= assignment._id %>/comments' method='POST'>
+		<h1>Add new comment to <%=assignment.name%></h1>
+		
+		<div class='form-group pt-2'>
+			<label>Nickname</label>
+			<input type='text' class='form-control' name='comment[author]' value='anonymous'>
+		</div>
+		
+		<div class='form-group pt-2'>
+			<label>Comments</label>
+			<input type='text' class='form-control' name='comment[text]' placeholder='text'>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	
+	<a href="/assignments/<%= assignment._id %>">Go Back</a>
+</div>
+
+<% include ../partials/footer %>

@@ -5,13 +5,20 @@
 
 <div class='container containerCus'>
 		<div class="row">
+		
+			<!------------------------------------->
 			<div class="card col-sm-4">
 			  <div class="card-body">
-		  			<h4 class="py-2">Posted on: <%= assignment.dateCreated.toDateString() %></h4>
-			  		<h4 class="py-2">Due Date: <%= assignment.dateDue.toDateString() %></h4>
-			  		<h4 class="py-2">Total Points: <%= assignment.totalPoint %></h4>
-			  		<h4 class="py-2">Status: <%= assignment.status %></h4>
-			  			
+	  				<p class="lead"> Assignment <%= assignment.number %> </p>
+	  						
+	  				<ul class="list-group">
+	  					<li class="list-group-item active">Due Date: <%= assignment.dateDue.toDateString() %></li>
+					  	<li class="list-group-item">Posted on: <%= assignment.dateCreated.toDateString() %></li>
+					  	<li class="list-group-item">Total Points: <%= assignment.totalPoint %></li>
+					  	<li class="list-group-item">Status: <%= assignment.status %></li>
+					  	<li class="list-group-item">Vestibulum at eros</li>
+					</ul>
+	
 		  			<br></br>
 		  			<% if(userTypeStudent){ %>
 						<button>Submit</button>
@@ -22,35 +29,48 @@
 			   
 			   <div class='row justify-content-center'>
 					<% if(userTypeFaculty){ %>
-						<button class=''><a class='btnLink' href='/assignment/<%=assignment._id%>/edit'>Edit</a></button>
-						<form action='/assignment/<%= assignment._id %>?_method=DELETE' method="POST">
-							<button class=''> Delete</button>
+						<button class=''><a class='btnLink' href='/assignments/<%=assignment._id%>/edit'>Edit</a></button>
+						<form action='/assignments/<%= assignment._id %>?_method=DELETE' method="POST">
+							<button class='btn btn-success'> Delete</button>
 						</form>
 					<% } %>
-				</div>
-				
+				</div>	
 			</div>
-		
+			
+			<!------------------------------------->
+			
 			<div class="card col-sm-8">
-			 	<div class="card-header text-center">
-				 	<h1 class="card-title">Assignment <%= assignment.number %>: <%= assignment.title %></a></h1>
-			 	</div>
+	 			<div class="card card-body">
+					<!-- Assignment description section -->
+					<div class="card-header text-center">
+						<h1 class="card-title"><%= assignment.title %></a></h1>
+					</div>
 
-			  	<div class="card-body">
-			  		<h4 class="py-2">Description: <%= assignment.body %></h4>
-		  			<br></br>
-			  		<p>comments.... section</p>
-			   	</div>
-			   
-			  	<div class="card-body">
-			   		<% assignment.comments.forEach(function(comment) { %>
-						<p> <strong> <%= comment.author %> </strong> - <%= comment.text %> </p>
-					<% }); %>
+					<div class="card-body">
+						<p class="py-2">Description: <%= assignment.body %></p>
+					</div>
+				</div>
+			   	
+			   	<!-- Comments Section  -->
+			   	<div class="card card-body">
+			   		<div class="text-right">
+			   			<a class="btn btn-success" href="/assignments/<%= assignment._id %>/comments/new">Add New Comment</a>
+					</div>
+		   		
+			   		<hr>
+			   		
+					<% assignment.comments.forEach(function(comment) { %>
+						<div class="row">
+							<div class="col-md-12">
+								<strong><%= comment.author%></strong>
+								<span class="float-right"><%= comment.datePosted.toDateString() %></span>
+								<p> <%= comment.text %> </p>
+							</div>
+						</div>
+					<% }); %>		
 				</div>
 			</div>	
-		</div>
-		
-		
+		</div>	
 </div>
 
 <% include ../partials/footer %>

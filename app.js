@@ -127,14 +127,14 @@ app.get('/home', isLoggedIn, function(req, res){
 	res.render('home');
 });
 
-app.get('/upload', function(req, res) {
+app.get('/upload', isLoggedIn, function(req, res) {
 	res.render('upload');
 });
 
-app.get('/syllabus', function(req, res) {
+app.get('/syllabus', isLoggedIn, function(req, res) {
 	res.render('syllabus');
 });
-app.post('/upload', function(req, res) {
+app.post('/upload', isLoggedIn, function(req, res) {
 	upload(req, res, (err) => {
 		if(err) {
 			res.render('upload', {
@@ -162,7 +162,7 @@ app.get('/', isLoggedIn, function(req, res){
 //----------------------------------//
 
 // INDEX route (show all assignments)
-app.get('/assignment', function(req, res){
+app.get('/assignments', isLoggedIn, function(req, res){
 	Assignment.find({}, function(err, allAssignments){
 		if(err) {
 			console.log("Error!");
@@ -174,13 +174,13 @@ app.get('/assignment', function(req, res){
 
 
 // NEW route (input form)
-app.get('/assignment/new', isLoggedIn, function(req, res){
+app.get('/assignments/new', isLoggedIn, function(req, res){
 	res.render('assignment/new');
 });
 
 
 // CREATE route (add the new assignment into our db)
-app.post('/assignment', isLoggedIn, function(req, res){
+app.post('/assignments', isLoggedIn, function(req, res){
 	// Create assignment
 	Assignment.create(req.body.assignment, function(err, newAssignment){
 		if(err){
@@ -193,19 +193,15 @@ app.post('/assignment', isLoggedIn, function(req, res){
 
 
 // SHOW route (show the detail info of a specific assignment)
-app.get('/assignment/:id', function(req, res){
+app.get('/assignments/:id', isLoggedIn, function(req, res){
 	var userTypeStudent = req.user instanceof Student;
 	var userTypeFaculty = req.user instanceof Faculty;
-	console.log("Faculty:");
-	console.log(userTypeFaculty);
-	console.log("Student:");
-	console.log(userTypeStudent);
 	
 	// populate function brings back the comments, not just the ID of the comments
 	Assignment.findById(req.params.id).populate("comments").exec(function(err, foundAssignment){
 		if(err) {
 			console.log("Cannot find the requested assignment");
-			res.redirect('/assignment');
+			res.redirect('/assignments');
 		} else {
 			res.render('assignment/show', {assignment:foundAssignment, userTypeStudent:userTypeStudent, userTypeFaculty:userTypeFaculty});
 		}
@@ -214,11 +210,11 @@ app.get('/assignment/:id', function(req, res){
 
 
 // EDIT route (input form)
-app.get('/assignment/:id/edit', isLoggedIn, function(req, res){
+app.get('/assignments/:id/edit', isLoggedIn, function(req, res){
 	Assignment.findById(req.params.id, function(err, foundAssignment){
 		if(err) {
 			console.log('cannot find the assignment to edit')
-			res.redirect('/assignment');
+			res.redirect('/assignments');
 		} else{
 			res.render('assignment/edit', {assignment:foundAssignment});
 		}
@@ -227,28 +223,66 @@ app.get('/assignment/:id/edit', isLoggedIn, function(req, res){
 
 
 // UPDATE route (update the edited input into our db)
-app.put('/assignment/:id', isLoggedIn, function(req, res){
+app.put('/assignments/:id', isLoggedIn, function(req, res){
 	Assignment.findByIdAndUpdate(req.params.id, req.body.assignment, function(err, updateAssignment){
 		if(err){
-			res.redirect('/assignment');
+			res.redirect('/assignments');
 		} else {
-			res.redirect('/assignment/' + req.params.id);
+			res.redirect('/assignments/' + req.params.id);
 		}
 	});
 });
 
 
 // DELETE route (remove data from the db)
-app.delete('/assignment/:id', isLoggedIn, function(req, res){
+app.delete('/assignments/:id', isLoggedIn, function(req, res){
 	Assignment.findByIdAndRemove(req.params.id, function(err){
 		if(err){
 			console.log('Delete fail!');
-			res.redirect('/assignment');
+			res.redirect('/assignments');
 		} else {
-			res.redirect('/assignment');
+			res.redirect('/assignments');
 		}
 	});
 });
+
+
+//--------------------------------------//
+// NESTED RESTFUL ROUTES for COMMENTS   //
+//--------------------------------------//
+
+// NEW route (input form)
+app.get('/assignments/:id/comments/new', isLoggedIn, function(req, res) {
+	// req.parems.id is from the URL (:/id)
+	Assignment.findById(req.params.id, function(err, foundAssignment){
+		if (err) {
+			console.log(err);
+		} else {
+			res.render("comment/new", {assignment: foundAssignment});
+		}
+	});
+});
+
+// CREATE route (add the new comment into our db and redirect back to the show page)
+app.post('/assignments/:id/comments', isLoggedIn, function(req, res) {
+	// req.parems.id is from the URL (:/id)
+	Assignment.findById(req.params.id, function(err, foundAssignment){
+		if (err) {
+			console.log(err);
+		} else {
+			Comment.create(req.body.comment, function(err, comment) {
+				if (err) {
+					console.log(err);
+				} else {
+					foundAssignment.comments.push(comment);
+					foundAssignment.save();
+					res.redirect('/assignments/' + foundAssignment._id);
+				}
+			});
+		}
+	});
+});
+
 
 //-----------------------------//
 // AUTH ROUTES				   //
