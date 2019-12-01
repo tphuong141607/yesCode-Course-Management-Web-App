@@ -6,8 +6,11 @@ var express 		= require('express'),
 	mongoose 		= require('mongoose'),
 	passport 		= require('passport'),
 	Holidays 		= require('date-holidays'),
-	localStrategy 	= require('passport-local');
-
+	localStrategy 	= require('passport-local'),
+	multer			= require('multer'),
+	path			= require('path'),
+	seedDB 			= require("./seeds");
+	
 /* Calender stuffs
 var hd = new Holidays();
 hd.init('US', 'la', 'no');
@@ -18,9 +21,20 @@ console.log(a[0]);
 //------------------------//
 // IMPORT Objects         //
 //------------------------//
+var Comment = require('./models/comment');
 var Student = require('./models/student');
 var Faculty = require('./models/faculty');
 var Assignment = require('./models/assignment');
+
+
+//------------------------//
+// Basic config           //
+//------------------------//
+app.use(bodyParser.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
+app.use(methodOverride('_method'));
+seedDB(); // seed the DB with default data for testing purpose
 
 //------------------------//
 // Jquery                 //
@@ -30,7 +44,6 @@ const { window } = new JSDOM();
 const { document } = (new JSDOM('')).window;
 global.document = document;
 var $ = require("jquery")(window);
-
 
 //------------------------//
 // Mongoose/Model Config  //
@@ -46,23 +59,13 @@ mongoose.connect('mongodb://localhost/BBProject', {
 	console.log('ERROR:', err.message);
 }); 
 
-
-//------------------------//
-// Basic config           //
-//------------------------//
-app.use(bodyParser.urlencoded({extended: true}));
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
-app.use(methodOverride('_method'));
-
-
-//-----------------------//
-// Passport Config       //
-//-----------------------//
-	/*Useful resources:
+//---------------------------------------//
+// Passport Config - Authentication      //
+//---------------------------------------//
+/*Useful resources:
 	• https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize 
 	• https://stackoverflow.com/questions/45897332/passport-js-multiple-de-serialize-methods
-	*/
+*/
 
 app.use(require('express-session')({
 		secret:'Halloween is the BEST!@#$',
@@ -77,7 +80,6 @@ passport.use('faculty', new localStrategy(Faculty.authenticate()));
 passport.use('student', new localStrategy(Student.authenticate()));
 
 passport.serializeUser((obj, done) => {
-	console.log(obj instanceof Student);
   if (obj instanceof Student) {
     done(null, {id: obj._id, type: 'Student' });
   } else {
@@ -101,6 +103,22 @@ app.use(function(req, res, next){
 	next();
 });
 
+//-------------------------------------//
+// Set Storage Engine (Upload File)    //
+//-------------------------------------//
+const storage = multer.diskStorage({
+	destination:'./public/uploads/',
+	filename: function(req, file, cb) {
+		cb(null, "syllabus" + path.extname(file.originalname));
+	}
+});
+
+// init upload
+const upload = multer({
+	storage: storage
+}).single('myFile'); 
+
+
 //-----------------------------//
 // REGULAR ROUTES (front-end)  //
 //-----------------------------//
@@ -109,13 +127,39 @@ app.get('/home', isLoggedIn, function(req, res){
 	res.render('home');
 });
 
+app.get('/upload', function(req, res) {
+	res.render('upload');
+});
+
+app.get('/syllabus', function(req, res) {
+	res.render('syllabus');
+});
+app.post('/upload', function(req, res) {
+	upload(req, res, (err) => {
+		if(err) {
+			res.render('upload', {
+				msg: err
+			});
+		} else {
+			if (req.file == undefined) {
+				res.render('upload', {
+					msg: 'Error: no File Selected'
+				});
+			} else {
+				res.render('syllabus', {
+				});
+			}
+		}
+	});
+});
+
 app.get('/', isLoggedIn, function(req, res){
 	res.render('home');
 });
 
-//-----------------------------   //
-// RESTFUL ROUTES for ASSIGNMENTS //
-//-----------------------------   //
+//----------------------------------//
+// RESTFUL ROUTES for ASSIGNMENTS   //
+//----------------------------------//
 
 // INDEX route (show all assignments)
 app.get('/assignment', function(req, res){
@@ -157,7 +201,8 @@ app.get('/assignment/:id', function(req, res){
 	console.log("Student:");
 	console.log(userTypeStudent);
 	
-	Assignment.findById(req.params.id, function(err, foundAssignment){
+	// populate function brings back the comments, not just the ID of the comments
+	Assignment.findById(req.params.id).populate("comments").exec(function(err, foundAssignment){
 		if(err) {
 			console.log("Cannot find the requested assignment");
 			res.redirect('/assignment');
@@ -214,7 +259,6 @@ app.delete('/assignment/:id', isLoggedIn, function(req, res){
 app.get('/login', function(req, res){
 	res.render('login');
 });
-
 
 app.post('/login', logIn, function(req, res) {
 });
@@ -290,6 +334,7 @@ function logIn(req, res, next){
 	}
 	return next();
 }
+
 
 //-----------------------------//
 // NODE Connection/START       //

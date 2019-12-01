@@ -32,15 +32,21 @@
 			</div>
 		
 			<div class="card col-sm-8">
-			 <div class="card-header text-center">
-				 <h1 class="card-title">Assignment <%= assignment.number %>: <%= assignment.title %></a></h1>
-			  </div>
+			 	<div class="card-header text-center">
+				 	<h1 class="card-title">Assignment <%= assignment.number %>: <%= assignment.title %></a></h1>
+			 	</div>
 
-			  <div class="card-body">
+			  	<div class="card-body">
 			  		<h4 class="py-2">Description: <%= assignment.body %></h4>
 		  			<br></br>
 			  		<p>comments.... section</p>
-			   </div>
+			   	</div>
+			   
+			  	<div class="card-body">
+			   		<% assignment.comments.forEach(function(comment) { %>
+						<p> <strong> <%= comment.author %> </strong> - <%= comment.text %> </p>
+					<% }); %>
+				</div>
 			</div>	
 		</div>
 		
