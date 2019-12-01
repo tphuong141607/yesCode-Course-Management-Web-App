@@ -21,10 +21,10 @@ console.log(a[0]);
 //------------------------//
 // IMPORT Objects         //
 //------------------------//
-var Comment = require('./models/comment');
-var Student = require('./models/student');
-var Faculty = require('./models/faculty');
-var Assignment = require('./models/assignment');
+var Comment 	= require('./models/comment'),
+	Student 	= require('./models/student'),
+	Faculty 	= require('./models/faculty'),
+	Assignment 	= require('./models/assignment');
 
 
 //------------------------//
@@ -37,7 +37,7 @@ app.use(methodOverride('_method'));
 seedDB(); // seed the DB with default data for testing purpose
 
 //------------------------//
-// Jquery                 //
+// Jquery Config          //
 //------------------------//
 const { JSDOM } = jsdom;
 const { window } = new JSDOM();
@@ -119,255 +119,16 @@ const upload = multer({
 }).single('myFile'); 
 
 
-//-----------------------------//
-// REGULAR ROUTES (front-end)  //
-//-----------------------------//
-// ROOT Page Route
-app.get('/home', isLoggedIn, function(req, res){
-	res.render('home');
-});
+//------------------------//
+// IMPORT ROUTES          //
+//------------------------//
+var commentRoutes 		= require('./routes/comment'),
+	assignmentRoutes 	= require('./routes/assignment'),
+	allPurposeRoutes 	= require('./routes/index');
 
-app.get('/upload', isLoggedIn, function(req, res) {
-	res.render('upload');
-});
-
-app.get('/syllabus', isLoggedIn, function(req, res) {
-	res.render('syllabus');
-});
-app.post('/upload', isLoggedIn, function(req, res) {
-	upload(req, res, (err) => {
-		if(err) {
-			res.render('upload', {
-				msg: err
-			});
-		} else {
-			if (req.file == undefined) {
-				res.render('upload', {
-					msg: 'Error: no File Selected'
-				});
-			} else {
-				res.render('syllabus', {
-				});
-			}
-		}
-	});
-});
-
-app.get('/', isLoggedIn, function(req, res){
-	res.render('home');
-});
-
-//----------------------------------//
-// RESTFUL ROUTES for ASSIGNMENTS   //
-//----------------------------------//
-
-// INDEX route (show all assignments)
-app.get('/assignments', isLoggedIn, function(req, res){
-	Assignment.find({}, function(err, allAssignments){
-		if(err) {
-			console.log("Error!");
-		} else {
-			res.render('assignment/index', {assignment:allAssignments});
-		}
-	});	
-});
-
-
-// NEW route (input form)
-app.get('/assignments/new', isLoggedIn, function(req, res){
-	res.render('assignment/new');
-});
-
-
-// CREATE route (add the new assignment into our db)
-app.post('/assignments', isLoggedIn, function(req, res){
-	// Create assignment
-	Assignment.create(req.body.assignment, function(err, newAssignment){
-		if(err){
-			res.render('new');
-		} else {
-			res.redirect('/assignment');
-		}
-	})
-});
-
-
-// SHOW route (show the detail info of a specific assignment)
-app.get('/assignments/:id', isLoggedIn, function(req, res){
-	var userTypeStudent = req.user instanceof Student;
-	var userTypeFaculty = req.user instanceof Faculty;
-	
-	// populate function brings back the comments, not just the ID of the comments
-	Assignment.findById(req.params.id).populate("comments").exec(function(err, foundAssignment){
-		if(err) {
-			console.log("Cannot find the requested assignment");
-			res.redirect('/assignments');
-		} else {
-			res.render('assignment/show', {assignment:foundAssignment, userTypeStudent:userTypeStudent, userTypeFaculty:userTypeFaculty});
-		}
-	});
-});
-
-
-// EDIT route (input form)
-app.get('/assignments/:id/edit', isLoggedIn, function(req, res){
-	Assignment.findById(req.params.id, function(err, foundAssignment){
-		if(err) {
-			console.log('cannot find the assignment to edit')
-			res.redirect('/assignments');
-		} else{
-			res.render('assignment/edit', {assignment:foundAssignment});
-		}
-	})
-});
-
-
-// UPDATE route (update the edited input into our db)
-app.put('/assignments/:id', isLoggedIn, function(req, res){
-	Assignment.findByIdAndUpdate(req.params.id, req.body.assignment, function(err, updateAssignment){
-		if(err){
-			res.redirect('/assignments');
-		} else {
-			res.redirect('/assignments/' + req.params.id);
-		}
-	});
-});
-
-
-// DELETE route (remove data from the db)
-app.delete('/assignments/:id', isLoggedIn, function(req, res){
-	Assignment.findByIdAndRemove(req.params.id, function(err){
-		if(err){
-			console.log('Delete fail!');
-			res.redirect('/assignments');
-		} else {
-			res.redirect('/assignments');
-		}
-	});
-});
-
-
-//--------------------------------------//
-// NESTED RESTFUL ROUTES for COMMENTS   //
-//--------------------------------------//
-
-// NEW route (input form)
-app.get('/assignments/:id/comments/new', isLoggedIn, function(req, res) {
-	// req.parems.id is from the URL (:/id)
-	Assignment.findById(req.params.id, function(err, foundAssignment){
-		if (err) {
-			console.log(err);
-		} else {
-			res.render("comment/new", {assignment: foundAssignment});
-		}
-	});
-});
-
-// CREATE route (add the new comment into our db and redirect back to the show page)
-app.post('/assignments/:id/comments', isLoggedIn, function(req, res) {
-	// req.parems.id is from the URL (:/id)
-	Assignment.findById(req.params.id, function(err, foundAssignment){
-		if (err) {
-			console.log(err);
-		} else {
-			Comment.create(req.body.comment, function(err, comment) {
-				if (err) {
-					console.log(err);
-				} else {
-					foundAssignment.comments.push(comment);
-					foundAssignment.save();
-					res.redirect('/assignments/' + foundAssignment._id);
-				}
-			});
-		}
-	});
-});
-
-
-//-----------------------------//
-// AUTH ROUTES				   //
-//-----------------------------//
-
-// ---------- LOG-IN
-//	1. Show the login form
-app.get('/login', function(req, res){
-	res.render('login');
-});
-
-app.post('/login', logIn, function(req, res) {
-});
-
-// ---------- REGISTER
-// Show the register form
-app.get('/register', function(req, res){
-	res.render('register');
-});
-
-// handle register logic
-app.post('/register', function(req, res) {
-	console.log(req.body.accountType);
-	
-	if (req.body.accountType === 'student') {
-		var newStudent = new Student({username: req.body.username});
-		Student.register(newStudent, req.body.password, function(err, student){
-			if(err){
-				console.log("can't register!");
-				console.log(err);
-				return res.render('register');
-			}
-
-			// If the student successfully signup, he will be login
-			passport.authenticate('student')(req, res, function(){
-				res.redirect('/home');
-			});
-		});
-		
-	} else if (req.body.accountType === 'faculty') {
-		var newFaculty = new Faculty({username: req.body.username});
-		Faculty.register(newFaculty, req.body.password, function(err, faculty){
-			if(err){
-				console.log("can't register!");
-				console.log(err);
-				return res.render('register');
-			}
-
-			// If the Faculty successfully signup, he will be login
-			passport.authenticate('faculty')(req, res, function(){
-				res.redirect('/home');
-			});
-		});
-	}
-	
-});
-
-// ----------- LOG OUT
-app.get('/logout', function(req, res){
-	req.logout();
-	res.redirect('/login');
-});
- 
-// Middleware function
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect('/login');
-}
-
-function logIn(req, res, next){
-	console.log(req.body.accountType);
-	if(req.body.accountType === 'faculty') {
-		passport.authenticate('faculty')(req, res, function(){
-			res.redirect('/home');
-		});
-		
-	} else if(req.body.accountType === 'student') {
-		passport.authenticate('student')(req, res, function(){
-			res.redirect('/home');
-		});
-	}
-	return next();
-}
+app.use(allPurposeRoutes);
+app.use("/assignments", assignmentRoutes);
+app.use("/assignments/:id/comments", commentRoutes);
 
 
 //-----------------------------//
@@ -378,9 +139,5 @@ const ip = process.env.IP || "127.0.0.1";
 app.listen(port, function(){
     console.log("Server has started .... at port "+ port + " ip: " + ip);
 });
-
-
-
-
 
 

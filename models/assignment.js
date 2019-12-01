@@ -6,7 +6,7 @@ var assignmentSchema = new mongoose.Schema({
 	body: String,
 	totalPoint: Number,
 	status: Boolean,
-	dateDue: {type: Date},
+	dateDue: {type: Date, default: Date.now},
 	dateCreated: {type: Date, default: Date.now},
 	// Reference to the Comment's ID
 	comments: [

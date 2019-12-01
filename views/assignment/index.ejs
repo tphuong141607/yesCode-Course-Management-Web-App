@@ -4,27 +4,36 @@
 <link rel="stylesheet" type="text/css" href='/stylesheets/assignment.css'/>
 
 <div class="containerCus">
-	<% assignment.forEach(function(eachAssignment){ %>
-		<div class="container pt-5">
-			<div class="card assignmentHover">
-			 	<div class="card-header">
-			 		 <h5> Assignment <%= eachAssignment.number %>: <%= eachAssignment.title %></h5>
-					 <p><em>Posted on: <%= eachAssignment.dateCreated%></em></p>
-					 <p><em>Due Date: <%= eachAssignment.dateDue%></em></p>
-			 	</div>
-				
-				 
-				 <div class="card-body">
-					
-					<p class="card-text">Describtion: <%= eachAssignment.body.substring(0, 80) %>...</p>
-					<div class="mask">
-						<a href='/assignments/<%= eachAssignment._id %>' class='hoverLink'></a>
-						<p>Read More</p>
+	<div class="container pt-5">
+		<% if(userTypeFaculty){ %>
+			<button class=''><a class='btnLink' href='/assignments/new'>Add New Assignment </a></button>	
+		<% } %>
+	
+	</div>
+	
+	<div class="pb-5">
+		<% assignment.forEach(function(eachAssignment){ %>
+			<div class="container pt-5">
+				<div class="card assignmentHover">
+					<div class="card-header">
+						 <h5> Assignment <%= eachAssignment.number %>: <%= eachAssignment.title %></h5>
+						 <p><em>Posted on: <%= eachAssignment.dateCreated%></em></p>
+						 <p><em>Due Date: <%= eachAssignment.dateDue%></em></p>
 					</div>
-				  </div>
+
+
+					 <div class="card-body">
+
+						<p class="card-text">Describtion: <%= eachAssignment.body.substring(0, 80) %>...</p>
+						<div class="mask">
+							<a href='/assignments/<%= eachAssignment._id %>' class='hoverLink'></a>
+							<p>Read More</p>
+						</div>
+					  </div>
+				</div>
 			</div>
-		</div>
-	<% }); %>
+		<% }); %>
+	</div>
 </div>
 
 

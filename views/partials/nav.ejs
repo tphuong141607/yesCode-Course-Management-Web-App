@@ -21,7 +21,7 @@
 				<a href="/" class="nav-link">SYLLABUS</a>
 			</li>
 			<li class="nav-item">
-				<a href="/assignments" target="_blank" class="nav-link">ASSIGMENT</a>
+				<a href="/assignments" class="nav-link">ASSIGMENT</a>
 			</li>
 			<li class="nav-item">
 				<a href="/" class="nav-link">PERFORMANCE</a>
@@ -42,8 +42,11 @@
 						<a href="/register" class="nav-link">Sign Up</a>
 					</li>
 				<% } else { %>
+					<li class="nav-item px-3">
+						<p class="nav-link">Signed In As <%= currentUser.fName %> <%= currentUser.lName %></p>
+					</li>
 					<li class="nav-item">
-						<a href="/logout" target="_blank" class="nav-link">LOGOUT</a>
+						<a href="/logout" class="nav-link">LOGOUT</a>
 					</li>
 				<% } %>
 			</ul>
