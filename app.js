@@ -9,7 +9,8 @@ var express 		= require('express'),
 	localStrategy 	= require('passport-local'),
 	multer			= require('multer'),
 	path			= require('path'),
-	seedDB 			= require("./seeds");
+	seedDBAssignment = require("./seedsAssignment"),
+	seedDBAnnouncement = require("./seedsAnnouncement");
 	
 /* Calender stuffs
 var hd = new Holidays();
@@ -24,7 +25,8 @@ console.log(a[0]);
 var Comment 	= require('./models/comment'),
 	Student 	= require('./models/student'),
 	Faculty 	= require('./models/faculty'),
-	Assignment 	= require('./models/assignment');
+	Assignment 	= require('./models/assignment'),
+	Announcement 	= require('./models/announcement');;
 
 
 //------------------------//
@@ -34,7 +36,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
-seedDB(); // seed the DB with default data for testing purpose
+seedDBAssignment(); // seed the DB with default data for testing purpose
+seedDBAnnouncement(); // seed the DB with default data for testing purpose
 
 //------------------------//
 // Jquery Config          //
@@ -48,8 +51,10 @@ var $ = require("jquery")(window);
 //------------------------//
 // Mongoose/Model Config  //
 //------------------------//
-// Tell Express to listen for requests (start server)
-mongoose.connect('mongodb://localhost/BBProject', {
+// mongodb://localhost/BBProject
+// mongodb+srv://msanna1407:Asdasd123@cluster0-dnulg.mongodb.net/test?retryWrites=true&w=majority
+
+mongoose.connect('mongodb+srv://msanna1407:Asdasd123@cluster0-dnulg.mongodb.net/test?retryWrites=true&w=majority', {
 	useNewUrlParser: true, 
 	useUnifiedTopology: true,
 	useCreateIndex: true
@@ -68,7 +73,7 @@ mongoose.connect('mongodb://localhost/BBProject', {
 */
 
 app.use(require('express-session')({
-		secret:'Halloween is the BEST!@#$',
+		secret:'weomkdckmwerqnomcw2342!@#$',
 		resave: false,
 		saveUninitialized: false
 }));
@@ -124,11 +129,13 @@ const upload = multer({
 //------------------------//
 var commentRoutes 		= require('./routes/comment'),
 	assignmentRoutes 	= require('./routes/assignment'),
+	announcementRoutes	= require('./routes/announcement'),
 	allPurposeRoutes 	= require('./routes/index');
 
 app.use(allPurposeRoutes);
 app.use("/assignments", assignmentRoutes);
 app.use("/assignments/:id/comments", commentRoutes);
+app.use("/announcements", announcementRoutes);
 
 
 //-----------------------------//

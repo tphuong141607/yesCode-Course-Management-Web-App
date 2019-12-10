@@ -38,14 +38,12 @@ function seedDB(){
         if(err){
             console.log(err);
         }
-        console.log("removed assignments!");
 	   
 	    // Remove all current comments 
         Comment.remove({}, function(err) {
             if(err){
                 console.log(err);
             }
-            console.log("removed comments!");
 			
              // Add a few assignments
             data.forEach(function(seed){
@@ -53,7 +51,6 @@ function seedDB(){
                     if(err){
                         console.log(err)
                     } else {
-                        console.log("added an assignment");
 						
                         //create a comment
                         Comment.create(
@@ -66,7 +63,6 @@ function seedDB(){
                                 } else {
                                     assignment.comments.push(comment);
                                     assignment.save();
-                                    console.log("Created new comment");
                                 }
                             });
                     }

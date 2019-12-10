@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+
+<link rel="stylesheet" type="text/css" href='/stylesheets/assignment.css'/>
+
+<div class='container containerCus'>
+	<form class='formDiv' action='/announcements/<%= announcement._id %>?_method=PUT' method='POST'>
+		<h1>Editing: <%=announcement.title%></h1>
+
+		
+		<div class='form-group pt-2'>
+			<label>Title</label>
+			<input type='text' class='form-control' name='announcement[title]' value='<%= announcement.title %>'>
+		</div>
+
+		<div class='form-group field'>
+			<label>Description</label>
+			<textarea type='text'rows='9' class='form-control' name='announcement[body]'><%= announcement.body %></textarea>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="cancel" class="btn btn-primary" onclick="window.location='/announcements/<%= announcement._id %>'; return false;">Cancel</button>
+	</form>
+</div>
+
+<% include ../partials/footer %>
