@@ -4,15 +4,24 @@
 <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
 <link rel="stylesheet" type="text/css" href='/stylesheets/home.css'/>
 
- <div class="containerCus container-fluid">
- 	  <h1 class="text-center welcomeText pb-5" id="welcome-text"></h1>
+
+
+<header>
+	<div class="cover-text-box">
+	 	<h1 class="text-center welcomeText pb-5" id="welcome-text"></h1>	
+	</div>
+</header>
+
+	
+ <div class="container-fluid">
+	 <section class="backgroundColor">
 	  <div class="row pb-5 px-5 pt-5">
-	  
-		  <div class="col-sm-7"> 
+		<div class="col-sm-7"> 
 				<div class="card cardCus">
-					 <div class="card-header card-header-cus text-center"> 
+				 	<div class="card-header card-header-cus text-center"> 
 						 <h4><a class="title" href='#'>Announcements</a></h2>				
-					  </div>
+					</div>
+				
 					  <!-- For loop here to create multiple announcements!-->
 					  <div class="card-body card-body-cus">
 							<a href="#"><h5 class="announce-title">New things title <%= %></h5></a>
@@ -81,7 +90,7 @@
 				</div>			
 		  </div> 
   	</div>
-  
+  </section>
   
 
   	<div class="row px-5">
